@@ -1,4 +1,4 @@
-import { fromEvent, from, of } from 'rxjs';
+import { fromEvent, from, of, throwError } from 'rxjs';
 import { map, switchMap, debounceTime, distinctUntilChanged, filter, catchError, flatMap } from 'rxjs/operators';
 import axios, { AxiosResponse } from 'axios';
 import { fromFetch } from 'rxjs/fetch';
@@ -24,7 +24,7 @@ const input$ = fromEvent(searchBox, 'input')
     switchMap(
         term => fromFetch(`https://api.github.com/search/users?q=${term}`)
     ),
-    flatMap(response => response.json()),
+    flatMap(response => response.ok ? response.json() : throwError(response)),
 );
     
 input$.subscribe(
@@ -38,7 +38,7 @@ input$.subscribe(
     },
     (err) => {
         reset();
-        errorBox.innerHTML = err.message;
+        errorBox.innerHTML = err.statusText;
     },
     () => {},
 );
