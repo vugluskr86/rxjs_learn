@@ -6,7 +6,7 @@
   "dependencies": {
     "@reactivex/rxjs": "^6.5.2",
     "@types/rx": "^4.1.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "node-ts": "^5.0.1",
     "rxjs": "^6.5.2",
     "ts-loader": "^6.0.4",
